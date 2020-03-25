@@ -1,114 +1,23 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="nama_petugas" class="col-md-4 col-form-label text-md-right">{{ __('nama_petugas') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="nama_petugas" type="text" class="form-control @error('nama_petugas') is-invalid @enderror" name="nama_petugas" value="{{ old('nama_petugas') }}" required autocomplete="nama_petugas" autofocus>
-
-                                @error('nama_petugas')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('level') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="level" type="text" class="form-control @error('level') is-invalid @enderror" name="level" value="{{ old('level') }}" required autocomplete="level" autofocus>
-
-                                @error('level')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
 @extends('layouts.index')
 
 @section('content')
-    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
-    </div>
-    <div class="container mt--8 pb-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-7">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="text-center">Daftar Akun</h3>
+<div id="app">
+    <section class="section">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="login-brand">
+              <img src="{{asset('admin/assets/img/stisla-fill.svg')}}" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
-            <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
-            @csrf
 
-                <div class="form-group">
-                    <input hidden name="id" type="text" class="form-control" placeholder="ID" value="<?php 
+            <div class="card card-primary">
+              <div class="card-header"><h4>Daftar Akun</h4></div>
+
+              <div class="card-body">
+                <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate="">
+                @csrf
+                      <label hidden for="id">ID Petugas</label>
+                      <input hidden id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="<?php 
                         $idp=DB::table("users")->select(DB::raw("MAX(RIGHT(id,3)) as kd_max"));
                         if($idp->count()>0){
                             foreach($idp->get() as $kode){
@@ -119,53 +28,55 @@
                             $finalkode="1";
                         }
                         echo $finalkode;
-                    ?>" required>
-                  <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                    ?>" required="" oninvalid="this.setCustomValidity('Tidak boleh kosong')" oninput="setCustomValidity('')" autocomplete="off">
+                    <div class="form-group">
+                      <label for="nama_petugas">Nama Petugas</label>
+                      <input id="nama_petugas" type="text" class="form-control @error('nama_petugas') is-invalid @enderror" name="nama_petugas" required="" oninvalid="this.setCustomValidity('Tidak boleh kosong')" oninput="setCustomValidity('')" autocomplete="off">
                     </div>
-                    <input name="username" type="text" class="form-control" placeholder="Username" required>
-                  </div>
-                </div>
 
-                <div class="form-group">
-                  <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input name="password" type="password" class="form-control" placeholder="Password" required>
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" required="" oninvalid="this.setCustomValidity('Tidak boleh kosong')" oninput="setCustomValidity('')" autocomplete="off">
                   </div>
-                </div>
 
-                <div class="form-group">
-                  <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-single-02"></i></span>
-                    </div>
-                    <input name="nama_petugas" type="text" class="form-control" placeholder="Nama Petugas" required>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                   <div class="input-group input-group-merge input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-trophy"></i></span>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label for="password" class="d-block">Password</label>
+                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" data-indicator="pwindicator" name="password" required="" oninvalid="this.setCustomValidity('Tidak boleh kosong')" oninput="setCustomValidity('')" autocomplete="off">
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
                       </div>
-                      <select name="level" id="" class="form-control" required>
-                        <option value="">-- Pilih level --</option>
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="password_confirmation" class="d-block">Konfirmasi Password</label>
+                      <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required="" oninvalid="this.setCustomValidity('Tidak boleh kosong')" oninput="setCustomValidity('')" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Level Akun</label>
+                      <select name="level" class="form-control" required="" oninvalid="this.setCustomValidity('Pilih Level Akun')" oninput="setCustomValidity('')">
+                        <option value="">-- Level Akun --</option>
                         <option value="admin">Admin</option>
                         <option value="petugas">Petugas</option>
                       </select>
                     </div>
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Daftar</button>
-                </div>
-              </form>
+                  <br>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Daftar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="simple-footer">
+              Copyright &copy; Stisla 2018
             </div>
           </div>
         </div>
       </div>
-    </div>
- 
+    </section>
+  </div>
+
 @endsection
