@@ -4,17 +4,28 @@ namespace App\Http\Controllers\petugas;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\models\petugasModel;
+use Illuminate\Support\Facades\Hash;
 
 class petugasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('petugas/indexPetugas');
+        $data = petugasModel::paginate(10);
+
+        if($request->ajax()){
+            return view('petugas/petugas', compact('data'));
+        }
+        return view('petugas/indexPetugas', compact('data'));
     }
 
     /**
@@ -35,7 +46,13 @@ class petugasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        petugasModel::create([
+            'id'=>$request->id,
+            'nama_petugas'=>$request->nama_petugas,
+            'username'=>$request->username,
+            'password'=>Hash::make($request->password),
+            'level'=>$request->level,
+        ]);
     }
 
     /**
