@@ -18,16 +18,11 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('admin/assets/css/components.css')}}">
-  <link rel="stylesheet" href="{{asset('admin/assets/css/loader-default.css')}}">
+  @yield('css')
 </head>
 
 <body class="layout-3">
   <div id="app">
-    <div class="loader">
-        <div class="inner">
-            
-        </div>
-    </div>
     <div class="main-wrapper">
         @include('navbar')
     </div>
@@ -61,5 +56,6 @@
 
   <!-- Page Specific JS File -->
   <script src="{{asset('admin/assets/js/page/index-0.js')}}"></script>
+  @yield('js')
 </body>
 </html>
