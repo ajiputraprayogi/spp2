@@ -5,7 +5,7 @@
             <th>Username</th>
             <th>Nama Petugas</th>
             <th>Level Akun</th>
-            <th class="text-center" style="width: 100px;"><i class="fa fa-flash"></i></th>
+            <th class="text-center" style="width: 150px;"><i class="fa fa-bolt"></i></th>
         </tr>
     </thead>
     <tbody id="isitabel">
@@ -21,6 +21,9 @@
                 <td>
                     <button class="btn btn-success" onclick="editdata({{$value->id}})">
                         <i class="fa fa-wrench"></i>
+                    </button>
+                    <button class="btn btn-danger" onclick="hapusdata({{$value->id}})">
+                        <i class="fa fa-trash"></i>
                     </button>
                 </td>
             </tr>

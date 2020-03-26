@@ -63,7 +63,8 @@ class petugasController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = petugasModel::where('id',$id)->get();
+        return response()->json($data);
     }
 
     /**
@@ -97,6 +98,6 @@ class petugasController extends Controller
      */
     public function destroy($id)
     {
-        //
+       petugasModel::destroy($id);
     }
 }

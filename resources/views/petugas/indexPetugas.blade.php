@@ -1,4 +1,7 @@
 @extends('index')
+@section('active2')
+    active
+@endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('admin/assets/js/plugins/loading.css')}}">
 @endsection
@@ -10,7 +13,7 @@
                     <h4>Daftar Petugas</h4>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;" id="tambah"><i class="fa fa-pencil"></i>Tambah Petugas</button>
+                    <button class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;" id="tambah"><i class="fa fa-pencil-alt"></i> Tambah Petugas</button>
                     <br><br>
                     <div class="table-responsive" id="listdata">
                         @include('petugas.petugas')
@@ -28,8 +31,8 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
                                     <label hidden for="id">ID Petugas</label>
-                                    <input hidden id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="<?php 
-                                        $idp=DB::table("users")->select(DB::raw("MAX(RIGHT(id,3)) as kd_max"));
+                                    <input  id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="<?php 
+                                        $idp=DB::table("users")->select(DB::raw("MAX(RIGHT(id,1)) as kd_max"));
                                         if($idp->count()>0){
                                             foreach($idp->get() as $kode){
                                                 $tmp=((int)$kode->kd_max)+1;
@@ -148,5 +151,6 @@
 @endsection
 @section('js')
     <script src="{{asset('admin/assets/js/plugins/loading.js')}}"></script>
+    <script src="{{asset('admin/assets/js/custom/sweetalert.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/custom/petugas.js')}}"></script>
 @endsection
